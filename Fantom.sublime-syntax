@@ -1,0 +1,180 @@
+%YAML 1.2
+---
+# http://www.sublimetext.com/docs/3/syntax.html
+name: Fantom
+file_extensions: [fan]
+scope: source.fan
+
+variables:
+  ident: '[A-Za-z_][A-Za-z0-9_]*'
+  number: '(\B\.[0-9][0-9_]*|\b[0-9][0-9_]*(\.[0-9][0-9_]*)?)([eE][-+]?[0-9][0-9_]*)?'
+
+contexts:
+
+  prototype:
+    - include: comments
+
+  comments:
+    - include: line-comment
+    - include: fandoc-comment
+    - include: multiline-comment
+
+  line-comment:
+    - scope: comment.line.double-slash.fan
+      match: (//).*
+
+  fandoc-comment:
+    - scope: comment.line.fandoc.fan
+      match: '^\s*\*\*.*'
+
+  multiline-comment:
+    - match: /\*
+      push:
+        - meta_scope: comment.block.fan
+        - include: multiline-comment
+        - match: \*/
+          pop: true
+        - match: .
+
+  main:
+    - include: strings
+    - include: uris
+    - include: numbers
+    - include: keywords
+    - include: operators
+
+  strings:
+    - match: '"'
+      push:
+        - meta_include_prototype: false
+        - meta_scope: string.quoted.double.fan
+        - include: escaped-unicode
+        - include: escaped-char
+        - include: interpolation
+        - match: '"'
+          pop: true
+        - match: .
+
+  escaped-unicode:
+    - scope: constant.character.escape.unicode.fan
+      match: '\\u[0-9A-Fa-f]{4}'
+    - scope: invalid.illegal.escape.unicode.fan
+      match: '\\u[0-9A-Fa-f]{0,3}'
+
+  escaped-char:
+    - scope: constant.character.escape.char.fan
+      match: \\[bfnrt"'`$\\]
+    - scope: invalid.illegal.escape.char.fan
+      match: \\.
+
+  interpolation:
+    - scope: variable.other.interpolated-expr.fan
+      match: '\$\{.+?\}'
+    - scope: variable.other.interpolated-dotcall.fan
+      match: '\$({{ident}}(.{{ident}})*)'
+    - scope: invalid.illegal.interpolation.fan
+      match: '\$(\{\})?'
+
+  uris:
+    - scope: string.quoted.other.uri.fan
+      match: '`'
+      push:
+        - meta_include_prototype: false
+        - meta_scope: string.quoted.other.uri.fan
+        - include: escaped-unicode
+        - include: escaped-char
+        - include: interpolation
+        - match: '`'
+          pop: true
+        - match: .
+
+  numbers:
+    - scope: constant.numeric.hex.fan
+      match: '\b0x[0-9A-Fa-f][_0-9A-Fa-f]*'
+    - scope: invalid.illegal.hex.fan
+      match: 0x
+
+    - scope: constant.numeric.escape.unicode.fan
+      match: '\\u[0-9A-Fa-f]{4}'
+    - scope: invalid.illegal.escape.unicode.fan
+      match: '\\(u[0-9A-Fa-f]{0,3})?'
+
+    - scope: constant.numeric.escape.char.fan
+      match: \'\\[bfnrt"'$\\]\'
+    - scope: constant.numeric.char.fan
+      match: \'[^\\]\'
+
+    - scope: constant.other.duration.fan
+      match: '{{number}}(ns|ms|sec|min|hr|day)'
+
+    - scope: constant.numeric.number.fan
+      match: '{{number}}[fdFD]?'
+
+  keywords:
+    - scope: constant.language.fan
+      match: \b(true|false|null)\b
+
+    - scope: storage.modifier.fan
+      match: \b(abstract|const|final|internal|native|once|override|private|protected|public|readonly|static|virtual|volatile)\b
+
+    - scope: storage.type.fan
+      match: \b(class|enum|facet|mixin)\b
+
+    - scope: keyword.control.block.fan
+      match: \b(return|break|continue)\b
+
+    - scope: keyword.control.exceptions.fan
+      match: \b(try|catch|finally|throw|assert)\b
+
+    - scope: keyword.control.loop.fan
+      match: \b(for|while|do|foreach)\b
+
+    - scope: keyword.control.flow.fan
+      match: \b(if|else|switch|case|default)\b
+
+    - scope: keyword.other.fan
+      match: \b(new|void)\b
+
+    - scope: storage.modifier.global.fan
+      match: \b(using)\b
+
+    - scope: variable.language.self.fan
+      match: \b(this|super|it)\b
+
+    - scope: support.type.sys.fan
+      match: \b(Void|Bool|Int|Float|Decimal|Duration|Str|Uri|Type|Slot|Range|List|Map|This)\b
+
+  operators:
+    - scope: keyword.operator.equality.fan
+      match: '===?|!==?'
+
+    - scope: keyword.operator.relational.symbol.fan
+      match: '<(=|=>)?|>=?'
+
+    - scope: keyword.operator.assign.fan
+      match: ':?='
+
+    - scope: keyword.operator.math.fan
+      match: '[+*/%-]=?'
+
+    - scope: keyword.operator.logical.fan
+      match: '!|&&|(\?\:)|(\|\|)'
+
+    - scope: keyword.operator.relational.named.fan
+      match: \b(is|isnot|as)\b
+
+    - scope: keyword.operator.call.fan
+      match: '\->|\?\->|\?\.'
+
+    - scope: keyword.operator.inc-dec.fan
+      match: '\+\+|\-\-'
+
+    - scope: keyword.operator.range.fan
+      match: '\.\.<?'
+
+    - scope: keyword.operator.tertiary.fan
+      match: '\?|:'
+
+    - scope: punctuation.terminator.fan
+      match: ';'
+

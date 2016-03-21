@@ -1,0 +1,12 @@
+{
+	"target": "fan_build",
+  "selector": "source.fan",
+  "variants": [
+      { "name": "Run Tests",
+      	"task": "test"
+      },
+      { "name": "Custom...",
+      	"task": "prompt"
+      }
+  ]
+}
