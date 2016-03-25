@@ -17,7 +17,7 @@ class FanBuildCommand(sublime_plugin.WindowCommand):
 	def run_build(self, task):
 		execArgs = {}
 		execArgs["cmd"] = ["./build.fan", task]
-		execArgs["file_regex"] = "^(.*)(?:\((\\d+),(\\d+)\)|:(\\d+))"
+		execArgs["file_regex"] = "^(.*)(?:\(|:)(\\d+)(?:,(\\d+))?"
 		execArgs["working_dir"] = self.workingDir
 		self.window.run_command("exec", execArgs)
 
