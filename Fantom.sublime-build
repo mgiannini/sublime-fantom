@@ -2,8 +2,11 @@
 	"target": "fan_build",
   "selector": "source.fan",
   "variants": [
-      { "name": "Run Tests",
+      { "name": "Testsuite",
       	"task": "test"
+      },
+      { "name": "Run Script",
+        "task": "run"
       },
       { "name": "Custom...",
       	"task": "prompt"

@@ -4,6 +4,10 @@ import os
 
 class FanBuildCommand(sublime_plugin.WindowCommand):
 	def run(self, task='compile', **kwargs):
+		if task == 'run':
+			self.run_script()
+			return
+
 		self.workingDir = self._find_pod_dir()
 		if not self.workingDir:
 			sublime.status_message("Could not find build.fan")
@@ -13,6 +17,12 @@ class FanBuildCommand(sublime_plugin.WindowCommand):
 			self.window.show_input_panel("Test", "full", self._ok, None, None)
 		else:
 			self.run_build(task)
+
+	def run_script(self):
+		file = self.window.active_view().file_name()
+		execArgs = {}
+		execArgs["cmd"] = [file]
+		self.window.run_command("exec", execArgs)
 
 	def run_build(self, task):
 		execArgs = {}
