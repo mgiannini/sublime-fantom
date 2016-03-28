@@ -44,6 +44,11 @@ contexts:
     - include: operators
 
   strings:
+    - include: triple-quoted-string
+    - include: double-quoted-string
+    - include: string-dsl
+
+  double-quoted-string:
     - match: '"'
       push:
         - meta_include_prototype: false
@@ -51,7 +56,35 @@ contexts:
         - include: escaped-unicode
         - include: escaped-char
         - include: interpolation
+        - include: locale-literal
         - match: '"'
+          pop: true
+        - match: .
+
+  triple-quoted-string:
+    - match: '"""'
+      push:
+        - meta_include_prototype: false
+        - meta_scope: string.quoted.triple.fan
+        - include: escaped-unicode
+        - scope: 'invalid.illegal.escape.char.fan'
+          match: '\\"'
+        - include: escaped-char
+        - include: interpolation
+        - include: locale-literal
+        - match: '"""'
+          pop: true
+        - match: .
+
+  string-dsl:
+    - match: '(Str)<\|'
+      captures:
+        1: support.type.sys.fan
+#        2: string.quoted.other.fan
+      push:
+        - meta_include_prototype: false
+        - meta_scope: string.quoted.other.fan
+        - match: '\|>'
           pop: true
         - match: .
 
@@ -71,9 +104,15 @@ contexts:
     - scope: variable.other.interpolated-expr.fan
       match: '\$\{.+?\}'
     - scope: variable.other.interpolated-dotcall.fan
-      match: '\$({{ident}}(.{{ident}})*)'
+      match: '\$({{ident}}(\.{{ident}})*)'
     - scope: invalid.illegal.interpolation.fan
-      match: '\$(\{\})?'
+      match: '\$\{\w*'
+
+  locale-literal:
+    - scope: variable.other.locale-literal.fan
+      match: '\$\<.+?\>'
+    - scope: invalid.illegal.locale-literal.fan
+      match: \$\<\w*
 
   uris:
     - scope: string.quoted.other.uri.fan
