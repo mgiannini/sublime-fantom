@@ -15,10 +15,13 @@ The `fan` binary must be in your system PATH.
 
 ## Installation
 
-### Using Package Control (Coming Soon)
+### Using Package Control (Recommended)
 
-The name of the package will be `Fantom`.
-Just waiting for the package to be approved...
+If you have [Package Control](http://wbond.net/sublime_packages/package_control/installation) installed in Sublime Text:
+
+- Open the Command Palette (Tools > Command Palette…)
+- Search for and choose "Package Control: Install Package" (give it a few seconds to return a list of available packages)
+- Search for "Fantom" and install.
 
 ### Manual
 
