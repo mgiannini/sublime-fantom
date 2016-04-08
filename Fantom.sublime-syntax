@@ -42,6 +42,13 @@ contexts:
     - include: numbers
     - include: keywords
     - include: operators
+    - include: typedef
+
+  typedef:
+    - match: (class|enum|mixin|facet)\s+({{ident}})
+      captures:
+        1: storage.modifier.fan
+        2: meta.type.fan
 
   strings:
     - include: triple-quoted-string
@@ -156,8 +163,8 @@ contexts:
     - scope: storage.modifier.fan
       match: \b(abstract|const|final|internal|native|once|override|private|protected|public|readonly|static|virtual|volatile)\b
 
-    - scope: storage.type.fan
-      match: \b(class|enum|facet|mixin)\b
+    # - scope: storage.type.fan
+    #   match: \b(class|enum|facet|mixin)\b
 
     - scope: keyword.control.block.fan
       match: \b(return|break|continue)\b
