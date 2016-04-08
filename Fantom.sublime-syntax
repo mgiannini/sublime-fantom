@@ -163,9 +163,6 @@ contexts:
     - scope: storage.modifier.fan
       match: \b(abstract|const|final|internal|native|once|override|private|protected|public|readonly|static|virtual|volatile)\b
 
-    # - scope: storage.type.fan
-    #   match: \b(class|enum|facet|mixin)\b
-
     - scope: keyword.control.block.fan
       match: \b(return|break|continue)\b
 
