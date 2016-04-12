@@ -45,7 +45,7 @@ contexts:
     - include: typedef
 
   typedef:
-    - match: (class|enum|mixin|facet)\s+({{ident}})
+    - match: (class|mixin)\s+({{ident}})
       captures:
         1: storage.modifier.fan
         2: meta.type.fan
@@ -161,7 +161,7 @@ contexts:
       match: \b(true|false|null)\b
 
     - scope: storage.modifier.fan
-      match: \b(abstract|const|final|internal|native|once|override|private|protected|public|readonly|static|virtual|volatile)\b
+      match: \b(abstract|const|enum|facet|final|internal|native|once|override|private|protected|public|readonly|static|virtual|volatile)\b
 
     - scope: keyword.control.block.fan
       match: \b(return|break|continue)\b
