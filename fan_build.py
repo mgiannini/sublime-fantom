@@ -21,15 +21,18 @@ class FanBuildCommand(sublime_plugin.WindowCommand):
 	def run_script(self):
 		file = self.window.active_view().file_name()
 		execArgs = {}
-		execArgs["cmd"] = [file]
+		execArgs["cmd"] = [self._fan_script(), file]
 		self.window.run_command("exec", execArgs)
 
 	def run_build(self, task):
 		execArgs = {}
-		execArgs["cmd"] = ["fan", "./build.fan", task]
+		execArgs["cmd"] = [self._fan_script(), "./build.fan", task]
 		execArgs["file_regex"] = "^(.*)(?:\(|:)(\\d+)(?:,(\\d+))?"
 		execArgs["working_dir"] = self.workingDir
 		self.window.run_command("exec", execArgs)
+
+	def _fan_script(self):
+		return ("fan", "fan.bat")[os.name == "nt"]
 
 	def _find_pod_dir(self):
 		view = self.window.active_view()
