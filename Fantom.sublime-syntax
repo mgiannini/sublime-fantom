@@ -221,3 +221,6 @@ contexts:
     - scope: punctuation.terminator.fan
       match: ';'
 
+    - scope: meta.brackets.fan
+      match: \{|\}|\(|\)|\[|\]|\|
+
