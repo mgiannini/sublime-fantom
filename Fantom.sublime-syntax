@@ -215,6 +215,9 @@ contexts:
     - scope: keyword.operator.range.fan
       match: '\.\.<?'
 
+    - scope: keyword.operator.storage.fan
+      match: '&'
+
     - scope: keyword.operator.tertiary.fan
       match: '\?|:'
 
