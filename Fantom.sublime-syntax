@@ -42,7 +42,12 @@ contexts:
     - include: numbers
     - include: keywords
     - include: operators
+    - include: facets
     - include: typedef
+
+  facets:
+    - scope: meta.facet.fan
+      match: '\@[0A-Z][_0-9A-Za-z]*'
 
   typedef:
     - match: (class|mixin)\s+({{ident}})
