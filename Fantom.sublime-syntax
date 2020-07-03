@@ -145,6 +145,11 @@ contexts:
     - scope: invalid.illegal.hex.fan
       match: 0x
 
+    - scope: constant.numeric.hex.fan
+      match: '\b0b[0-9A-Fa-f][_0-9A-Fa-f]*'
+    - scope: invalid.illegal.hex.fan
+      match: 0b
+
     - scope: constant.numeric.escape.unicode.fan
       match: '\\u[0-9A-Fa-f]{4}'
     - scope: invalid.illegal.escape.unicode.fan
