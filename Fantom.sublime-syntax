@@ -115,7 +115,7 @@ contexts:
   interpolation:
     - scope: variable.other.interpolated-expr.fan
       match: '\$\{.+?\}'
-    - scope: variable.other.interpolated-dotcall.fan
+    - scope: variable.other.interpolated-expr.fan
       match: '\$({{ident}}(\.{{ident}})*)'
     - scope: invalid.illegal.interpolation.fan
       match: '\$\{\w*'
