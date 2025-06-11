@@ -102,9 +102,9 @@ contexts:
 
   escaped-unicode:
     - scope: constant.character.escape.unicode.fan
-      match: '\\u[0-9A-Fa-f]{4}'
+      match: '\\u([0-9A-Fa-f]{4}|\{[0-9A-Fa-f]{1,6}\})'
     - scope: invalid.illegal.escape.unicode.fan
-      match: '\\u[0-9A-Fa-f]{0,3}'
+      match: '\\u([0-9A-Fa-f]{0,3}|\{\})'
 
   escaped-char:
     - scope: constant.character.escape.char.fan
@@ -151,9 +151,9 @@ contexts:
       match: 0b
 
     - scope: constant.numeric.escape.unicode.fan
-      match: '\\u[0-9A-Fa-f]{4}'
+      match: '\\u([0-9A-Fa-f]{4}|\{[0-9A-Fa-f]{1,6}\})'
     - scope: invalid.illegal.escape.unicode.fan
-      match: '\\(u[0-9A-Fa-f]{0,3})?'
+      match: '\\u([0-9A-Fa-f]{0,3}|\{\})'
 
     - scope: constant.numeric.escape.char.fan
       match: \'\\[bfnrt"'$\\]\'
